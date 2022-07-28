@@ -15,6 +15,7 @@ class CoursePage extends StatefulWidget{
 
 class _CoursePageState extends State<CoursePage> {
   String day=DateFormat('EEEE').format(DateTime.now());
+  int currTime=int.parse(DateFormat('H').format(DateTime.now()));
 
   @override
   void initState(){
@@ -30,6 +31,7 @@ class _CoursePageState extends State<CoursePage> {
 
     setState((){});
   }
+
   @override
   Widget build(BuildContext context){
     return Container(
@@ -69,6 +71,7 @@ class _CoursePageState extends State<CoursePage> {
 
 class Header extends StatelessWidget{
 
+
   @override
   Widget build(BuildContext context){
     return Container(
@@ -100,13 +103,10 @@ class Header extends StatelessWidget{
   }
 }
 
-class courseList extends StatefulWidget{
-  @override
-  State<courseList> createState() => _courseListState();
-}
 
-class _courseListState extends State<courseList> {
-  int currHour=int.parse(DateFormat('H').format(DateTime.now()));
+
+class courseList extends StatelessWidget {
+  var list=CourseModel.courseList.where((element) => (element.hour!>int.parse(DateFormat('H').format(DateTime.now())))).toList();
 
   @override
   Widget build(BuildContext context){
@@ -114,12 +114,9 @@ class _courseListState extends State<courseList> {
       child: Container(
         child:ListView.builder(
           shrinkWrap: true,
-            itemCount: CourseModel.courseList.length,
+            itemCount:list.length,
             itemBuilder: (context,index){
-
-        Course course=CourseModel.courseList[index];
-
-        return CourseTile(course: course);
+            return CourseTile(course: list[index]);
 
 
 
