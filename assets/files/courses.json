@@ -1,0 +1,111 @@
+{
+  "Monday":[
+    {
+      "code": "ESC201A",
+      "name": "INTRODUCTION TO ELECTRONICS",
+      "image": "assets/images/electro.png",
+      "time": "8:00 AM - 9:00 AM",
+      "hour": 8
+    },
+    {
+      "code": "ESO206A",
+      "name": "PRINCIPLES OF BIOTECHNOLOGY",
+      "image": "assets/images/bio.jpg",
+      "time": "9:00 AM - 10:00 AM",
+      "hour": 9
+    },
+    {
+      "code": "ESO213A",
+      "name": "FUNDAMENTALS OF EARTH SCIENCES",
+      "image": "assets/images/earth.png",
+      "time": "11:00 AM - 12:00 PM",
+      "hour": 11
+    },
+    {
+      "code": "BSE211A",
+      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
+      "image": "assets/images/human.jpg",
+      "time": "12:00 PM - 1:00 PM",
+      "hour": 12
+    }
+  ],
+  "Tuesday": [
+    {
+      "code": "TA201A",
+      "name": "MANUFACTURING PROCESSES I",
+      "image": "assets/images/ta.jpg",
+      "time": "9:00 AM - 10:00 AM",
+      "hour": 9
+    }
+  ],
+  "Wednesday":[
+    {
+      "code": "ESC201A",
+      "name": "INTRODUCTION TO ELECTRONICS",
+      "image": "assets/images/electro.png",
+      "time": "8:00 AM - 9:00 AM",
+      "hour": 8
+    },
+    {
+      "code": "ESO206A",
+      "name": "PRINCIPLES OF BIOTECHNOLOGY",
+      "image": "assets/images/bio.jpg",
+      "time": "9:00 AM - 10:00 AM",
+      "hour": 9
+    },
+    {
+      "code": "ESO213A",
+      "name": "FUNDAMENTALS OF EARTH SCIENCES",
+      "image": "assets/images/earth.png",
+      "time": "11:00 AM - 12:00 PM",
+      "hour": 11
+    },
+    {
+      "code": "BSE211A",
+      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
+      "image": "assets/images/human.jpg",
+      "time": "12:00 PM - 1:00 PM",
+      "hour": 12
+    }
+],
+  "Thursday": [
+    {
+      "code": "ESC201A Tutorial",
+      "name": "INTRODUCTION TO ELECTRONICS",
+      "image": "assets/images/electro.png",
+      "time": "8:00 AM - 9:00 AM",
+      "hour": 8
+    }
+  ],
+  "Friday": [
+    {
+      "code": "ESC201A",
+      "name": "INTRODUCTION TO ELECTRONICS",
+      "image": "assets/images/electro.png",
+      "time": "8:00 AM - 9:00 AM",
+      "hour": 8
+    },
+    {
+      "code": "ESO206A",
+      "name": "PRINCIPLES OF BIOTECHNOLOGY",
+      "image": "assets/images/bio.jpg",
+      "time": "9:00 AM - 10:00 AM",
+      "hour": 9
+    },
+    {
+      "code": "ESO213A",
+      "name": "FUNDAMENTALS OF EARTH SCIENCES",
+      "image": "assets/images/earth.png",
+      "time": "11:00 AM - 12:00 PM",
+      "hour": 11
+    },
+    {
+      "code": "BSE211A",
+      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
+      "image": "assets/images/human.jpg",
+      "time": "12:00 PM - 1:00 PM",
+      "hour": 12
+    }
+  ]
+
+}
