@@ -6,14 +6,16 @@ class Course {
   String? image;
   String? time;
   int? hour;
-  Course({this.code,this.name,this.image,this.time,this.hour});
+  String? lh;
+  Course({this.code,this.name,this.image,this.time,this.hour,this.lh});
   factory Course.fromMap(Map<String,dynamic>map){
     return Course(
       code: map["code"],
       name: map["name"],
       image: map["image"],
         time:map["time"],
-        hour: map["hour"]
+        hour: map["hour"],
+        lh:map["lh"]
 
     );
   }
@@ -22,7 +24,8 @@ class Course {
     "name":name,
     "image":image,
     "time":time,
-    "hour":hour
+    "hour":hour,
+    "lh":lh
   };
 
 }

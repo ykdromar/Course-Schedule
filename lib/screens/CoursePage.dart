@@ -57,7 +57,25 @@ class _CoursePageState extends State<CoursePage> {
                   Header(),
 
                   SizedBox(height: 2,),
+                  Text("Upcoming Lectures",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                      color: Themes.darkBlue,
+
+                    ),
+                  ),
                   courseList(),
+                  Text("Past Lectures",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 19,
+                      color: Themes.darkBlue,
+
+                    ),
+                  ),
+                  courseListPast()
+
 
                 ],
               ),
@@ -106,23 +124,46 @@ class Header extends StatelessWidget{
 
 
 class courseList extends StatelessWidget {
-  var list=CourseModel.courseList.where((element) => (element.hour!>int.parse(DateFormat('H').format(DateTime.now())))).toList();
+  var list=CourseModel.courseList.where((element) => (element.hour!>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
 
   @override
   Widget build(BuildContext context){
-    return Expanded(
-      child: Container(
-        child:ListView.builder(
-          shrinkWrap: true,
-            itemCount:list.length,
-            itemBuilder: (context,index){
-            return CourseTile(course: list[index]);
+    return Container(
+
+      child:ListView.builder(
+        shrinkWrap: true,
+          itemCount:list.length,
+          itemBuilder: (context,index){
+          return CourseTile(course: list[index]);
 
 
 
 
   },
-        )
+      )
+    );
+
+  }
+}
+
+class courseListPast extends StatelessWidget {
+  var list=CourseModel.courseList.where((element) => (element.hour!<int.parse(DateFormat('H').format(DateTime.now())))).toList();
+
+  @override
+  Widget build(BuildContext context){
+    return Expanded(
+      child: Container(
+          child:ListView.builder(
+            shrinkWrap: true,
+            itemCount:list.length,
+            itemBuilder: (context,index){
+              return CourseTile(course: list[index]);
+
+
+
+
+            },
+          )
       ),
     );
 

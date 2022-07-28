@@ -60,6 +60,12 @@ shadowColor: Themes.darkBlue,
                           fontSize: 15,
                           color: Themes.darkBlue,
                         ),
+                      ),
+                      Text("Lecture Hall : ${course.lh}",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Themes.darkBlue,
+                        ),
                       )
                     ],
                   ),
