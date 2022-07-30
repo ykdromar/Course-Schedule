@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ykdromar_iitk_course_management/utils/courseModel.dart';
@@ -36,20 +37,18 @@ class _CoursePageState extends State<CoursePage> {
   Widget build(BuildContext context){
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(
-            // begin: FractionalOffset.topLeft,
-            // end: FractionalOffset.bottomRight,
-            colors: [
-              Colors.white,
-              Colors.tealAccent,
-              Colors.teal
-            ],
+          gradient: LinearGradient(colors: [
+            Themes.darkBlue,
 
+            Colors.blueAccent,
+            Colors.white
+          ]
 
           )
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
+
         body: SafeArea(
             child: Material(
               child: Column(
@@ -93,26 +92,45 @@ class Header extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+            Themes.darkBlue,
 
+            Colors.blueAccent,
+            // Colors.blue,
+            Colors.white
+          ]
+
+          )
+      ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Text("Courses Semester III",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Themes.darkBlue,
+          child: Row(
 
-                ),
+            children: [
+              Column(
+                children: [
+                  Text("Courses Semester III",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Colors.white,
+
+                    ),
+                  ),
+                  Text("Biological Sciences & Bioengineering",
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey
+                    ),
+                  ),
+                ],
               ),
-              Text("Biological Sciences & Bioengineering",
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.black
-              ),
-              ),
+              SizedBox(width: 65,),
+              Icon(CupertinoIcons.profile_circled,color: Themes.darkBlue,),
+              SizedBox(width: 10,),
+              Icon(CupertinoIcons.settings_solid,color:Themes.darkBlue,)
+              
             ],
           ),
         ),
