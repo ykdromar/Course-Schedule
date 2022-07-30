@@ -30,7 +30,7 @@
       "image": "assets/images/human.jpg",
       "time": "12:00 PM - 1:00 PM",
       "hour": 12,
-      "lh": "Unknown"
+      "lh": "L-11"
     }
   ],
   "Tuesday": [
@@ -41,6 +41,14 @@
       "time": "9:00 AM - 10:00 AM",
       "hour": 9,
       "lh": "L-20"
+    },
+    {
+      "code": "BSE211A",
+      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
+      "image": "assets/images/human.jpg",
+      "time": "12:00 PM - 1:00 PM",
+      "hour": 12,
+      "lh": "L-15"
     }
   ],
   "Wednesday":[
@@ -67,15 +75,8 @@
       "time": "11:00 AM - 12:00 PM",
       "hour": 11,
       "lh": "L-16"
-    },
-    {
-      "code": "BSE211A",
-      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
-      "image": "assets/images/human.jpg",
-      "time": "12:00 PM - 1:00 PM",
-      "hour": 12,
-      "lh": "Unknown"
     }
+
 ],
   "Thursday": [
     {
@@ -85,6 +86,14 @@
       "time": "8:00 AM - 9:00 AM",
       "hour": 8,
       "lh": "Unknown"
+    },
+    {
+      "code": "BSE211A",
+      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
+      "image": "assets/images/human.jpg",
+      "time": "12:00 PM - 1:00 PM",
+      "hour": 12,
+      "lh": "L-11"
     }
   ],
   "Friday": [
@@ -111,15 +120,8 @@
       "time": "11:00 AM - 12:00 PM",
       "hour": 11,
       "lh": "L-16"
-    },
-    {
-      "code": "BSE211A",
-      "name": "ORGAN SYSTEM PHYSIOLOGY AND ANATOMY",
-      "image": "assets/images/human.jpg",
-      "time": "12:00 PM - 1:00 PM",
-      "hour": 12,
-      "lh": "Unknown"
     }
+
   ]
 
 }
