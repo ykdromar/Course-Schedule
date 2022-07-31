@@ -63,7 +63,7 @@ shadowColor: Themes.darkBlue,
                             color: Themes.darkBlue,
                           ),
                         ),
-                        Text("Lecture Hall : ${course.lh}",
+                        Text("Venue : ${course.lh}",
                           style: TextStyle(
                             fontSize: 15,
                             color: Themes.darkBlue,

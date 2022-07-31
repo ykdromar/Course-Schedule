@@ -120,6 +120,14 @@
       "time": "11:00 AM - 12:00 PM",
       "hour": 11,
       "lh": "L-16"
+    },
+    {
+      "code": "TA201A LAB",
+      "name": "MANUFACTURING PROCESSES I",
+      "image": "assets/images/ta.jpg",
+      "time": "2:00 PM - 5:00 PM",
+      "hour": 14,
+      "lh": "TA201(Engineering Metallurgy Lab)"
     }
 
   ]

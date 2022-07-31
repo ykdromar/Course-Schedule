@@ -52,20 +52,25 @@ class _CoursePageState extends State<CoursePage> {
         body: SafeArea(
             child: Material(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Header(),
 
                   SizedBox(height: 2,),
-                  Text("Upcoming Lectures",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19,
-                      color: Themes.darkBlue,
+                  Padding(padding: EdgeInsets.all(15),
+                    child: Text("Upcoming Lectures",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        fontSize: 19,
+                        color: Themes.darkBlue,
 
+                      ),
                     ),
                   ),
+
                   courseList(),
-                  Text("Past Lectures",
+                  Padding(padding: EdgeInsets.all(15),
+                  child: Text("Past Lectures",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
@@ -73,6 +78,8 @@ class _CoursePageState extends State<CoursePage> {
 
                     ),
                   ),
+                  ),
+
                   courseListPast()
 
 
@@ -109,6 +116,7 @@ class Header extends StatelessWidget{
 
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Courses Semester III",
                     style: TextStyle(
