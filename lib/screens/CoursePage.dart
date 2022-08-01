@@ -137,7 +137,11 @@ class Header extends StatelessWidget{
               SizedBox(width: 65,),
               Icon(CupertinoIcons.profile_circled,color: Themes.darkBlue,),
               SizedBox(width: 10,),
-              Icon(CupertinoIcons.settings_solid,color:Themes.darkBlue,)
+              InkWell(
+                  onTap:(){
+
+                  },
+                  child: Icon(Icons.edit,color:Themes.darkBlue,))
               
             ],
           ),
