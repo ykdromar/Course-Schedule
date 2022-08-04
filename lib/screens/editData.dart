@@ -1,13 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:ykdromar_iitk_course_management/utils/courseModel.dart';
+import 'package:ykdromar_iitk_course_management/utils/routes.dart';
 
-class EditData extends StatelessWidget{
-late final String _day;
-late final String _code;
-late final String _name;
-late final String _venue;
-late final String _time;
-late final int  _hour;
+import '../utils/databaseManager.dart';
+import 'package:ykdromar_iitk_course_management/utils/databaseHelper.dart';
+class EditData extends StatefulWidget{
+  @override
+  State<EditData> createState() => _EditDataState();
+}
 
+class _EditDataState extends State<EditData> {
+late  String _day;
+
+late  String _code;
+
+late  String _name;
+
+late  String _venue;
+
+late  String _time;
+
+late  String  _hour;
+
+databaseManager? database=databaseHelper.database;
+loadData() async {
+  var db = database;
+  if (db != null) {
+    databaseHelper.futureCourseList = db.getCourses();
+
+  }
+  setState(() {
+
+  });
+}
+
+
+@override
+void initState(){
+  super.initState();
+  database=databaseManager();
+  loadData();
+
+
+
+}
 
   @override
   Widget build(BuildContext context){
@@ -52,7 +88,10 @@ late final int  _hour;
                         hintText: "eg.INTRODUCTION TO ELECTRONICS",
 
                       ),
-                      onChanged:(value){
+                      // onChanged:(value){
+                      //   _name=value;
+                      // },
+                      onChanged: (value){
                         _name=value;
                       },
                     ),
@@ -92,13 +131,27 @@ late final int  _hour;
 
                       ),
                       onChanged:(value){
-                        _hour=int.parse(value);
+                        _hour=value;
                       },
                     ),
                   ),
                   ElevatedButton(
 
-                      onPressed: (){},
+                      onPressed: (){
+                        Course c=new Course(code: _code,name: _name,time: _time,hour: _hour,venue: _venue);
+                        var db=database;
+                        if(db!=null) {
+                          db.insert(c).then((value) {
+                            print("DataAdded");
+                            loadData();
+
+
+                          }).onError((error, stackTrace) {
+                            print(error.toString());
+                          });
+                        }
+                        Navigator.pushNamed(context,routes.homeRoute );
+                      },
 
                       child: Text("Save")
                   )

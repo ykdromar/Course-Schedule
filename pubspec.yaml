@@ -40,6 +40,9 @@ dependencies:
   flutter_animator: ^3.2.2
   flutter_launcher_icons: ^0.9.3
   http: ^0.13.4
+  sqflite: ^2.0.3
+  path_provider: ^2.0.11
+  path: ^1.8.1
 
 dev_dependencies:
   flutter_test:

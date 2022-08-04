@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ykdromar_iitk_course_management/screens/CoursePage.dart';
+import 'package:ykdromar_iitk_course_management/screens/editData.dart';
+import 'package:ykdromar_iitk_course_management/utils/routes.dart';
 import 'package:ykdromar_iitk_course_management/utils/theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,6 +27,11 @@ class myApp extends StatelessWidget{
       debugShowCheckedModeBanner: false,
       home: Splash2(),
       theme: Themes.myTheme,
+      routes:{
+        routes.homeRoute:(context)=>CoursePage(),
+        routes.editRoute:(context)=>EditData(),
+
+      }
 
     );
   }

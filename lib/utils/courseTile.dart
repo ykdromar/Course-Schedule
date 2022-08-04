@@ -35,10 +35,10 @@ shadowColor: Themes.darkBlue,
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  SizedBox(child: Image.asset("${course.image}"),
-                  height:50,
-                    width:65,
-                  ),
+                  // SizedBox(child: Image.asset("${course.image}"),
+                  // height:50,
+                  //   width:65,
+                  // ),
                   Padding(
                     padding: const EdgeInsets.all(7.0),
                     child: Column(
@@ -63,7 +63,7 @@ shadowColor: Themes.darkBlue,
                             color: Themes.darkBlue,
                           ),
                         ),
-                        Text("Venue : ${course.lh}",
+                        Text("Venue : ${course.venue}",
                           style: TextStyle(
                             fontSize: 15,
                             color: Themes.darkBlue,
