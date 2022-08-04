@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ykdromar_iitk_course_management/utils/courseModel.dart';
 import 'package:ykdromar_iitk_course_management/utils/routes.dart';
 
@@ -21,19 +22,25 @@ late  String _venue;
 late  String _time;
 
 late  String  _hour;
-
+String day=DateFormat('EEEE').format(DateTime.now());
 databaseManager? database=databaseHelper.database;
 loadData() async {
   var db = database;
   if (db != null) {
-    databaseHelper.futureCourseList = db.getCourses();
+    databaseHelper.futureCourseList = db.getCourses(day);
 
   }
   setState(() {
 
   });
 }
+final _formKey=GlobalKey<FormState>();
+moveToHome(BuildContext context)async{
+  if(_formKey.currentState!.validate()){
 
+
+  }
+}
 
 @override
 void initState(){
@@ -65,6 +72,12 @@ void initState(){
                         onChanged:(value){
                           _day=value;
                         },
+                        validator: (value){
+                          if(value!=null&& value.isEmpty){
+                            return "Please fill the Day";
+                          }
+                          return null;
+                        },
                       ),
                   ),
                   Form(
@@ -78,7 +91,14 @@ void initState(){
                       onChanged:(value){
                         _code=value;
                       },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Course Code";
+                        }
+                        return null;
+                      },
                     ),
+
                   ),
                   Form(
 
@@ -88,11 +108,14 @@ void initState(){
                         hintText: "eg.INTRODUCTION TO ELECTRONICS",
 
                       ),
-                      // onChanged:(value){
-                      //   _name=value;
-                      // },
                       onChanged: (value){
                         _name=value;
+                      },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Course Name";
+                        }
+                        return null;
                       },
                     ),
                   ),
@@ -107,6 +130,12 @@ void initState(){
                       onChanged:(value){
                         _venue=value;
                       },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Venue of Lecture";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   Form(
@@ -119,6 +148,12 @@ void initState(){
                       ),
                       onChanged:(value){
                         _time=value;
+                      },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Time of Lecture";
+                        }
+                        return null;
                       },
                     ),
                   ),
@@ -133,6 +168,12 @@ void initState(){
                       onChanged:(value){
                         _hour=value;
                       },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Hour of Lecture";
+                        }
+                        return null;
+                      },
                     ),
                   ),
                   ElevatedButton(
@@ -141,7 +182,7 @@ void initState(){
                         Course c=new Course(code: _code,name: _name,time: _time,hour: _hour,venue: _venue);
                         var db=database;
                         if(db!=null) {
-                          db.insert(c).then((value) {
+                          db.insert(c,_day).then((value) {
                             print("DataAdded");
                             loadData();
 
@@ -151,6 +192,7 @@ void initState(){
                           });
                         }
                         Navigator.pushNamed(context,routes.homeRoute );
+                        // moveToHome(context);
                       },
 
                       child: Text("Save")

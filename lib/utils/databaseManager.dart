@@ -26,22 +26,34 @@ class databaseManager{
   }
   _onCreate(Database database,int version )async{
     await database.execute(
-      "CREATE TABLE Courses (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+      "CREATE TABLE Monday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+    );
+    await database.execute(
+        "CREATE TABLE Tuesday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+    );
+    await database.execute(
+        "CREATE TABLE Wednesday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+    );
+    await database.execute(
+        "CREATE TABLE Thursday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+    );
+    await database.execute(
+        "CREATE TABLE Friday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
     );
   }
-  Future<Course> insert(Course course) async{
+  Future<Course> insert(Course course,String day) async{
     var dbClient= await getDatabase;
     if(dbClient!=null){
-      await dbClient.insert('Courses',course.toMap());
+      await dbClient.insert('$day',course.toMap());
     }
     return course;
   }
 
-  Future<List<Course>> getCourses()async {
+  Future<List<Course>> getCourses(String day)async {
     Database? dbClient = await getDatabase;
     final List<Map<String, Object?>> queryResult;
     if (dbClient != null) {
-      queryResult = await dbClient.query('Courses');
+      queryResult = await dbClient.query('$day');
       }
     else{
         print("NULL Database");

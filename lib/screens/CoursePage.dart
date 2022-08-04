@@ -42,7 +42,7 @@ class _CoursePageState extends State<CoursePage> {
    loadData() async {
     var db = database;
     if (db != null) {
-      databaseHelper.futureCourseList = db.getCourses();
+      databaseHelper.futureCourseList = db.getCourses(day);
 
     }
     setState(() {
@@ -76,35 +76,7 @@ class _CoursePageState extends State<CoursePage> {
             )
         ),
         child: Scaffold(
-          floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.add),
-            onPressed: (){
-                var db=database;
-                if(db!=null) {
-                  db.insert(
-                    Course(code: 'yashghc',
-                        name: 'yash,',
-                        time: 'yash',
-                        hour: "ds",
-                        venue: 'yash'),
-                  ).then((value) {
-                    print("DataAdded");
 
-                    setState((){
-                      var db=database;
-                      if(db!=null) {
-                        databaseHelper.futureCourseList =db.getCourses();
-
-                      }
-                      // databaseHelper.futureCourseList=database!.getCourses();
-                    });
-
-                  }).onError((error, stackTrace) {
-                    print(error.toString());
-                  });
-                }
-            },
-          ),
           backgroundColor: Colors.transparent,
 
           body: SafeArea(
@@ -128,18 +100,18 @@ class _CoursePageState extends State<CoursePage> {
                     ),
 
                     courseList(),
-            // Padding(padding: EdgeInsets.all(15),
-            //         child: Text("Past Lectures",
-            //           style: TextStyle(
-            //             fontWeight: FontWeight.bold,
-            //             fontSize: 19,
-            //             color: Themes.darkBlue,
-            //
-            //           ),
-            //         ),
-            //         ),
+            Padding(padding: EdgeInsets.all(15),
+                    child: Text("Past Lectures",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19,
+                        color: Themes.darkBlue,
 
-                    // courseListPast()
+                      ),
+                    ),
+                    ),
+
+                    courseListPast()
 
 
                   ],
@@ -199,38 +171,12 @@ class _HeaderState extends State<Header> {
                   ),
                 ],
               ),
-              SizedBox(width: 65,),
-              Icon(CupertinoIcons.profile_circled,color: Themes.darkBlue,),
-              SizedBox(width: 10,),
+              SizedBox(width: 80,),
+
               InkWell(
                 onTap: (){
                   Navigator.pushNamed(context, routes.editRoute);
                 },
-                //   var db=database;
-                //   if(db!=null) {
-                //     db.insert(
-                //       Course(code: 'yash',
-                //           name: 'yash,',
-                //           time: 'yash',
-                //           hour: 6,
-                //           venue: 'yash'),
-                //     ).then((value) {
-                //       print("DataAdded");
-                //
-                //       setState((){
-                //         var db=database;
-                //         if(db!=null) {
-                //           databaseHelper.futureCourseList =db.getCourses();
-                //
-                //         }
-                //         // databaseHelper.futureCourseList=database!.getCourses();
-                //       });
-                //
-                //     }).onError((error, stackTrace) {
-                //       print(error.toString());
-                //     });
-                //   }
-                // },
 
                 child: SizedBox(
                     width: 20,
@@ -249,7 +195,9 @@ class _HeaderState extends State<Header> {
 
 
 class courseList extends StatelessWidget {
-  // var list=CourseModel.courseList.where((element) => (element.hour!>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
+
+  // var list=snapshot.where((element) => (element.h!>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
+
 
   @override
   Widget build(BuildContext context){
@@ -261,11 +209,12 @@ class courseList extends StatelessWidget {
             if(!snapshot.hasData) {
               return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
             }
+            var list=snapshot.data!.where((element) => ((int.parse(element.hour))>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
               return ListView.builder(
                 // shrinkWrap: true,
-                itemCount: snapshot.data!.length,
+                itemCount: list.length,
                 itemBuilder: (context, index) {
-                  return CourseTile(course: snapshot.data![index]);
+                  return CourseTile(course: list[index]);
                 },
               );
 
@@ -277,26 +226,35 @@ class courseList extends StatelessWidget {
   }
 }
 
-// class courseListPast extends StatelessWidget {
-//   var list=CourseModel.courseList.where((element) => (element.hour!<int.parse(DateFormat('H').format(DateTime.now())))).toList();
-//
-//   @override
-//   Widget build(BuildContext context){
-//     return Expanded(
-//       child: Container(
-//           child:ListView.builder(
-//             shrinkWrap: true,
-//             itemCount:list.length,
-//             itemBuilder: (context,index){
-//               return CourseTile(course: list[index]);
-//
-//
-//
-//
-//             },
-//           )
-//       ),
-//     );
-//
-//   }
-// }
+
+class courseListPast extends StatelessWidget {
+
+  // var list=snapshot.where((element) => (element.h!>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
+
+
+  @override
+  Widget build(BuildContext context){
+    return Expanded(
+      child: Container(
+        child: FutureBuilder(
+          future: databaseHelper.futureCourseList,
+          builder:(context,AsyncSnapshot<List<Course>> snapshot){
+            if(!snapshot.hasData) {
+              return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
+            }
+            var list=snapshot.data!.where((element) => ((int.parse(element.hour))<int.parse(DateFormat('H').format(DateTime.now())))).toList();
+            return ListView.builder(
+              // shrinkWrap: true,
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                return CourseTile(course: list[index]);
+              },
+            );
+
+          },
+        ),
+      ),
+    );
+
+  }
+}
