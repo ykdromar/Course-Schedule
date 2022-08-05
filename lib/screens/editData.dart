@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ykdromar_iitk_course_management/utils/courseModel.dart';
 import 'package:ykdromar_iitk_course_management/utils/routes.dart';
+import 'package:ykdromar_iitk_course_management/utils/theme.dart';
 
 import '../utils/databaseManager.dart';
 import 'package:ykdromar_iitk_course_management/utils/databaseHelper.dart';
@@ -11,7 +12,8 @@ class EditData extends StatefulWidget{
 }
 
 class _EditDataState extends State<EditData> {
-late  String _day;
+late String _day;
+String? _daySelected;
 
 late  String _code;
 
@@ -24,6 +26,27 @@ late  String _time;
 late  String  _hour;
 String day=DateFormat('EEEE').format(DateTime.now());
 databaseManager? database=databaseHelper.database;
+
+String? _selectedTime;
+
+// We don't need to pass a context to the _show() function
+// You can safety use context as below
+Future<void> _show() async {
+  final TimeOfDay? result =
+  await showTimePicker(context: context, initialTime: TimeOfDay.now());
+  if (result != null) {
+
+    setState(() {
+      _selectedTime = result.format(context);
+      _time=_selectedTime!;
+      DateTime currTime=DateFormat.jm().parse("$_time");
+      _hour=DateFormat("H").format(currTime);
+    });
+    // DateTime currTime=DateFormat.jm().parse("$result");
+    // _hour=DateFormat("H").format(currTime);
+  }
+}
+
 loadData() async {
   var db = database;
   if (db != null) {
@@ -47,11 +70,8 @@ void initState(){
   super.initState();
   database=databaseManager();
   loadData();
-
-
-
 }
-
+var days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
   @override
   Widget build(BuildContext context){
     return SafeArea(
@@ -63,22 +83,28 @@ void initState(){
                 children: [
                   Form(
 
-                      child: TextFormField(
-                        decoration:InputDecoration(
-                          labelText:"Day on which Course is to be added",
-                          hintText: "eg. Monday",
+                      child: DropdownButton<String>(
+                        value: _daySelected,
+                        onChanged: (value){
+                              _day=value!;
+                          setState(() {
+                            _daySelected=value;
+                          });
+                        },
 
-                        ),
-                        onChanged:(value){
-                          _day=value;
-                        },
-                        validator: (value){
-                          if(value!=null&& value.isEmpty){
-                            return "Please fill the Day";
-                          }
-                          return null;
-                        },
-                      ),
+                        items: days.map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              e,
+                              style: const TextStyle(fontSize: 18),
+                            ),
+                          ),
+                        ))
+                            .toList(),
+                        hint: Center(child: Text("Select Day on which Course is to be added",style: TextStyle(color: Themes.darkBlue),),),
+                      )
                   ),
                   Form(
 
@@ -138,44 +164,14 @@ void initState(){
                       },
                     ),
                   ),
-                  Form(
+                  ElevatedButton(
+                      onPressed: (){
+                        _show();
 
-                    child: TextFormField(
-                      decoration:InputDecoration(
-                        labelText:"Time",
-                        hintText: "eg. 8:00 AM - 9:00 AM",
-
-                      ),
-                      onChanged:(value){
-                        _time=value;
                       },
-                      validator: (value){
-                        if(value!=null&& value.isEmpty){
-                          return "Please fill the Time of Lecture";
-                        }
-                        return null;
-                      },
-                    ),
+                      child: Text(_selectedTime!=null? _selectedTime!: "Select Time"),
                   ),
-                  Form(
 
-                    child: TextFormField(
-                      decoration:InputDecoration(
-                        labelText:"Hour (In 24 hour format",
-                        hintText: "eg. for 1:00 PM it should be 13",
-
-                      ),
-                      onChanged:(value){
-                        _hour=value;
-                      },
-                      validator: (value){
-                        if(value!=null&& value.isEmpty){
-                          return "Please fill the Hour of Lecture";
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
                   ElevatedButton(
 
                       onPressed: (){

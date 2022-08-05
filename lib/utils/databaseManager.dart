@@ -40,6 +40,12 @@ class databaseManager{
     await database.execute(
         "CREATE TABLE Friday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
     );
+    await database.execute(
+        "CREATE TABLE Saturday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+    );
+    await database.execute(
+        "CREATE TABLE Sunday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+    );
   }
   Future<Course> insert(Course course,String day) async{
     var dbClient= await getDatabase;
