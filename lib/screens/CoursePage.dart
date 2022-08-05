@@ -45,11 +45,11 @@ class _CoursePageState extends State<CoursePage> {
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(80.0) , // here the desired height
             child: AppBar(
-              title: Center(child: const Text("Course Schedule",style: TextStyle(fontSize: 23,fontWeight: FontWeight.w900), )),
-              backgroundColor: Colors.blue,
+              title: Center(child:  Text("Course Schedule",style: TextStyle(color:Themes.darkBlue,fontSize: 23,fontWeight: FontWeight.w900), )),
+              backgroundColor: Colors.amber,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(80))),
               bottom: TabBar(
-
+                indicatorSize: TabBarIndicatorSize.label,
                 tabs: [
                   Icon(Icons.upcoming,color: Themes.darkBlue,),
                   Icon(Icons.done_all_rounded,color: Themes.darkBlue,),
@@ -77,33 +77,45 @@ class courseList extends StatelessWidget {
   Widget build(BuildContext context){
     return Column(
       children: [
-    Padding(padding: EdgeInsets.all(15),
+    Padding(padding: EdgeInsets.only(top:15),
                 child: Text("Upcoming Lectures",
                   style: TextStyle(
                     fontWeight: FontWeight.w900,
-                    fontSize: 19,
+                    fontSize: 20,
                     color: Themes.darkBlue,
 
                   ),
                 ),
               ),
         Expanded(
-          child: Container(
-              child: FutureBuilder(
-              future: databaseHelper.futureCourseList,
-              builder:(context,AsyncSnapshot<List<Course>> snapshot){
-                if(!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
-                }
-                var list=snapshot.data!.where((element) => ((int.parse(element.hour))>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
-                  return list.isEmpty? Center(child: Text("No more lectures 😀 Enjoy !",style: TextStyle(fontSize: 15),)) :ListView.builder(
-                    // shrinkWrap: true,
-                    itemCount: list.length,
-                    itemBuilder: (context, index) {
-                      return CourseTile(course: list[index]);
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                gradient: LinearGradient(
+                  colors: [
+                    Themes.yellow1,
+                    Themes.yellow2,
+                  ]
+                )
+              ),
+                child: FutureBuilder(
+                future: databaseHelper.futureCourseList,
+                builder:(context,AsyncSnapshot<List<Course>> snapshot){
+                  if(!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
+                  }
+                  var list=snapshot.data!.where((element) => ((int.parse(element.hour))>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
+                    return list.isEmpty? Center(child: Text("No more lectures 😀 Enjoy !",style: TextStyle(fontSize: 15),)) :ListView.builder(
+                      // shrinkWrap: true,
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        return CourseTile(course: list[index]);
+                      },
+                    );
                     },
-                  );
-                  },
+              ),
             ),
           ),
         ),
@@ -123,30 +135,42 @@ class courseListPast extends StatelessWidget {
               child: Text("Past Lectures",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 19,
+                  fontSize: 20,
                   color: Themes.darkBlue,
 
                 ),
               ),
               ),
         Expanded(
-          child: Container(
-            child: FutureBuilder(
-              future: databaseHelper.futureCourseList,
-              builder:(context,AsyncSnapshot<List<Course>> snapshot){
-                if(!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
-                }
-                var list=snapshot.data!.where((element) => ((int.parse(element.hour))<int.parse(DateFormat('H').format(DateTime.now())))).toList();
-                return list.isEmpty? Center(child: Text("No lectures are done till now 😔"),): ListView.builder(
-                  // shrinkWrap: true,
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    return CourseTile(course: list[index]);
-                  },
-                );
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  gradient: LinearGradient(
+                      colors: [
+                        Themes.yellow1,
+                        Themes.yellow2,
+                      ]
+                  )
+              ),
+              child: FutureBuilder(
+                future: databaseHelper.futureCourseList,
+                builder:(context,AsyncSnapshot<List<Course>> snapshot){
+                  if(!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
+                  }
+                  var list=snapshot.data!.where((element) => ((int.parse(element.hour))<int.parse(DateFormat('H').format(DateTime.now())))).toList();
+                  return list.isEmpty? Center(child: Text("No lectures are done till now 😔"),): ListView.builder(
+                    // shrinkWrap: true,
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      return CourseTile(course: list[index]);
+                    },
+                  );
 
-              },
+                },
+              ),
             ),
           ),
         ),

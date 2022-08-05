@@ -9,12 +9,12 @@ class CourseTile extends StatelessWidget{
   CourseTile ({required this.course});
   @override
   Widget build(BuildContext context){
-    return RollIn(
+    return SlideInLeft(
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8),
         child: Card(
-          elevation: 1.2,
-shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          elevation: 2.2,
+shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
 shadowColor: Themes.darkBlue,
           
           child: Container(
@@ -23,9 +23,11 @@ shadowColor: Themes.darkBlue,
               //       // begin: FractionalOffset.topLeft,
               //       // end: FractionalOffset.bottomRight,
               //       colors: [
-              //         Colors.white,
               //         // Colors.tealAccent,
-              //         Colors.teal
+              //         Themes.yellow2,
+              //         Themes.yellow1,
+              //
+              //
               //       ],
               //
               //
