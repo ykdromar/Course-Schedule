@@ -107,8 +107,8 @@ class courseList extends StatelessWidget {
                     return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
                   }
 
-                  var list=snapshot.data!.where((element) =>((int.parse(element.hour)+int.parse(element.min))>=((int.parse(DateFormat("H").format(DateTime.now())))+int.parse(DateFormat.m().format(DateTime.now()))) )).toList();
-                  list.sort((a,b)=>((int.parse(a.hour)+int.parse(a.min)).compareTo((int.parse(b.hour)+int.parse(b.min)))));
+                  var list=snapshot.data!.where((element) =>((double.parse(element.hour)+((double.parse(element.min)/60)))>=((double.parse(DateFormat("H").format(DateTime.now())))+((double.parse(DateFormat.m().format(DateTime.now())))/60) ))).toList();
+                  list.sort((a,b)=>((double.parse(a.hour)+((double.parse(a.min))/60)).compareTo((double.parse(b.hour)+((double.parse(b.min))/60)))));
 
                   return list.isEmpty? Center(child: Text("No more lectures 😀 Enjoy !",style: TextStyle(fontSize: 15),)) :ListView.builder(
                       // shrinkWrap: true,
@@ -163,8 +163,8 @@ class courseListPast extends StatelessWidget {
                   if(!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
                   }
-                  var list=snapshot.data!.where((element) =>((int.parse(element.hour)+int.parse(element.min))<((int.parse(DateFormat("H").format(DateTime.now())))+int.parse(DateFormat.m().format(DateTime.now()))) )).toList();
-                  list.sort((a,b)=>((int.parse(b.hour)+int.parse(b.min)).compareTo((int.parse(a.hour)+int.parse(a.min)))));
+                  var list=snapshot.data!.where((element) =>((double.parse(element.hour)+((double.parse(element.min)/60)))<((double.parse(DateFormat("H").format(DateTime.now())))+((double.parse(DateFormat.m().format(DateTime.now())))/60) ))).toList();
+                  list.sort((a,b)=>((double.parse(b.hour)+((double.parse(b.min))/60)).compareTo((double.parse(a.hour)+((double.parse(a.min))/60)))));
 
                   return list.isEmpty? Center(child: Text("No lectures are done till now 😔"),): ListView.builder(
                     // shrinkWrap: true,
