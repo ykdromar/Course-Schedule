@@ -51,6 +51,7 @@ class databaseManager{
     var dbClient= await getDatabase;
     if(dbClient!=null){
       await dbClient.insert('$day',course.toMap());
+
     }
     return course;
   }

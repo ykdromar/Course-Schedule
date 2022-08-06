@@ -107,6 +107,7 @@ class courseList extends StatelessWidget {
                     return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
                   }
                   var list=snapshot.data!.where((element) => ((int.parse(element.hour))>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
+                  list.sort((a,b)=>a.hour.compareTo(b.hour));
                     return list.isEmpty? Center(child: Text("No more lectures 😀 Enjoy !",style: TextStyle(fontSize: 15),)) :ListView.builder(
                       // shrinkWrap: true,
                       itemCount: list.length,
@@ -161,6 +162,8 @@ class courseListPast extends StatelessWidget {
                     return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
                   }
                   var list=snapshot.data!.where((element) => ((int.parse(element.hour))<int.parse(DateFormat('H').format(DateTime.now())))).toList();
+                  list.sort((a,b)=>a.hour.compareTo(b.hour));
+
                   return list.isEmpty? Center(child: Text("No lectures are done till now 😔"),): ListView.builder(
                     // shrinkWrap: true,
                     itemCount: list.length,
