@@ -6,8 +6,9 @@ class Course {
   // String? image;
   String? time;
   String hour;
+  String min;
   String? venue;
-  Course({this.code,this.name,this.time,required this.hour,this.venue});
+  Course({this.code,this.name,this.time,required this.hour,required this.min,this.venue});
   factory Course.fromMap(Map<String,dynamic>map){
     return Course(
       code: map["code"],
@@ -15,6 +16,7 @@ class Course {
       // image: map["image"],
         time:map["time"],
         hour: map["hour"],
+        min: map["min"],
         venue: map["venue"]
 
     );
@@ -25,6 +27,7 @@ class Course {
     // "image":image,
     "time":time,
     "hour":hour,
+    "min":min,
     "venue":venue
   };
 

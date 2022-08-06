@@ -7,7 +7,7 @@ import 'dart:io' as io;
 
 import 'courseModel.dart';
 class databaseManager{
-
+  final String code='code';
    Database? _database;
 
   Future<Database?> get getDatabase async{
@@ -26,25 +26,25 @@ class databaseManager{
   }
   _onCreate(Database database,int version )async{
     await database.execute(
-      "CREATE TABLE Monday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+      "CREATE TABLE Monday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
     await database.execute(
-        "CREATE TABLE Tuesday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+        "CREATE TABLE Tuesday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
     await database.execute(
-        "CREATE TABLE Wednesday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+        "CREATE TABLE Wednesday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
     await database.execute(
-        "CREATE TABLE Thursday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+        "CREATE TABLE Thursday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
     await database.execute(
-        "CREATE TABLE Friday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+        "CREATE TABLE Friday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
     await database.execute(
-        "CREATE TABLE Saturday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+        "CREATE TABLE Saturday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
     await database.execute(
-        "CREATE TABLE Sunday (id INTEGER PRIMARY KEY AUTOINCREMENT,code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,venue TEXT NOT NULL)"
+        "CREATE TABLE Sunday (id INTEGER PRIMARY KEY AUTOINCREMENT,$code TEXT NOT NULL,name TEXT NOT NULL,time TEXT NOT NULL,hour TEXT NOT NULL,min TEXT NOT NULL,venue TEXT NOT NULL)"
     );
   }
   Future<Course> insert(Course course,String day) async{
@@ -70,5 +70,11 @@ class databaseManager{
       return queryResult.map((e) => Course.fromMap(e)).toList();
 
   }
+   Future<void> delete(String codeValue,String day) async {
+     Database? dbClient = await getDatabase;
+     if(dbClient!=null) {
+       await dbClient.delete(day, where: '$code = ?', whereArgs: [codeValue]);
+     }
+   }
 
 }

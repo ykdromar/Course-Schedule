@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ykdromar_iitk_course_management/utils/courseModel.dart';
@@ -24,6 +26,7 @@ late  String _venue;
 late  String _time;
 
 late  String  _hour;
+late String _min;
 String day=DateFormat('EEEE').format(DateTime.now());
 databaseManager? database=databaseHelper.database;
 
@@ -41,6 +44,7 @@ Future<void> _show() async {
       _time=_selectedTime!;
       DateTime currTime=DateFormat.jm().parse("$_time");
       _hour=DateFormat("H").format(currTime);
+      _min=DateFormat.m().format(currTime);
     });
     // DateTime currTime=DateFormat.jm().parse("$result");
     // _hour=DateFormat("H").format(currTime);
@@ -61,15 +65,36 @@ final _formKey=GlobalKey<FormState>();
   void _processData() {
     // Process your data and upload to server
     if(_formKey.currentState!.validate()){
+      Course c=new Course(code: _code,name: _name,time: _time,hour: _hour,min: _min,venue: _venue);
+      var db=database;
+      if(db!=null) {
+        db.insert(c,_day).then((value) {
+          print("DataAdded");
+          loadData();
+
+
+        }).onError((error, stackTrace) {
+          print(error.toString());
+        });
+      }
       _formKey.currentState?.reset();
       _daySelected=null;
+      _selectedTime=null;
       setState(() {
 
       });
+      _showToast(context);
     }
 
   }
-
+  void _showToast(BuildContext context) {
+    final scaffold = ScaffoldMessenger.of(context);
+    scaffold.showSnackBar(
+      SnackBar(
+        content: const Text('Added Course'),
+      ),
+    );
+  }
 @override
 void initState(){
   super.initState();
@@ -95,128 +120,119 @@ var days=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"
           child: Form(
             key: _formKey,
 
-              child:Column(
-                children: [
-                  DropdownButtonFormField<String>(
-                    value: _daySelected,
-                    onChanged: (value){
-                      _day=value!;
-                      setState(() {
-                        _daySelected=value;
-                      });
-                    },
-                    validator: (value){
-                      if(value!=null&& value.isEmpty){
-                        return "Please Select the Day";
-                      }
-                      return null;
-                    },
+              child:SingleChildScrollView(
+                child: Column(
+                  children: [
+                    DropdownButtonFormField<String>(
+                      value: _daySelected,
+                      onChanged: (value){
+                        _day=value!;
+                        setState(() {
+                          _daySelected=value;
+                        });
+                      },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please Select the Day";
+                        }
+                        return null;
+                      },
 
-                    items: days.map((e) => DropdownMenuItem(
-                      value: e,
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          e,
-                          style: const TextStyle(fontSize: 18),
+                      items: days.map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            e,
+                            style: const TextStyle(fontSize: 18),
+                          ),
                         ),
+                      ))
+                          .toList(),
+                      hint: Center(child: Text("Select Day on which Course is to be added",style: TextStyle(color: Themes.darkBlue),),),
+                    ),
+                    SizedBox(height: 10,),
+                    TextFormField(
+                      decoration:InputDecoration(
+                        labelText:"Course Code",
+                        hintText: "eg. ESC201A",
+
                       ),
-                    ))
-                        .toList(),
-                    hint: Center(child: Text("Select Day on which Course is to be added",style: TextStyle(color: Themes.darkBlue),),),
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    decoration:InputDecoration(
-                      labelText:"Course Code",
-                      hintText: "eg. ESC201A",
-
+                      onChanged:(value){
+                        _code=value;
+                      },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Course Code";
+                        }
+                        return null;
+                      },
                     ),
-                    onChanged:(value){
-                      _code=value;
-                    },
-                    validator: (value){
-                      if(value!=null&& value.isEmpty){
-                        return "Please fill the Course Code";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    decoration:InputDecoration(
-                      labelText:"Name of Course",
-                      hintText: "eg.INTRODUCTION TO ELECTRONICS",
+                    SizedBox(height: 10,),
+                    TextFormField(
+                      decoration:InputDecoration(
+                        labelText:"Name of Course",
+                        hintText: "eg.INTRODUCTION TO ELECTRONICS",
 
+                      ),
+                      onChanged: (value){
+                        _name=value;
+                      },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Course Name";
+                        }
+                        return null;
+                      },
                     ),
-                    onChanged: (value){
-                      _name=value;
-                    },
-                    validator: (value){
-                      if(value!=null&& value.isEmpty){
-                        return "Please fill the Course Name";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  TextFormField(
-                    decoration:InputDecoration(
-                      labelText:"Venue",
-                      hintText: "eg. L-20",
+                    SizedBox(height: 10,),
+                    TextFormField(
+                      decoration:InputDecoration(
+                        labelText:"Venue",
+                        hintText: "eg. L-20",
 
+                      ),
+                      onChanged:(value){
+                        _venue=value;
+                      },
+                      validator: (value){
+                        if(value!=null&& value.isEmpty){
+                          return "Please fill the Venue of Lecture";
+                        }
+                        return null;
+                      },
                     ),
-                    onChanged:(value){
-                      _venue=value;
-                    },
-                    validator: (value){
-                      if(value!=null&& value.isEmpty){
-                        return "Please fill the Venue of Lecture";
-                      }
-                      return null;
-                    },
-                  ),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    width: 300,
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width: 300,
 
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.access_time,color: Themes.darkBlue,),
-                      onPressed: (){
-                        _show();
-                        },
-                      label: Text(_selectedTime!=null? _selectedTime!: "Select Time", style: TextStyle(color: Themes.darkBlue),),
-
-
-                    ),
-                  ),
-                  SizedBox(height: 10,),
-                  SizedBox(
-                    width: 150,
-                    child: ElevatedButton.icon(
-                      icon: Icon(Icons.add),
-
+                      child: ElevatedButton.icon(
+                        icon: Icon(Icons.access_time,color: Themes.darkBlue,),
                         onPressed: (){
-                          Course c=new Course(code: _code,name: _name,time: _time,hour: _hour,venue: _venue);
-                          var db=database;
-                          if(db!=null) {
-                            db.insert(c,_day).then((value) {
-                              print("DataAdded");
-                              loadData();
+                          _show();
+                          },
+                        label: Text(_selectedTime!=null? _selectedTime!: "Select Time", style: TextStyle(color: Themes.darkBlue),),
 
 
-                            }).onError((error, stackTrace) {
-                              print(error.toString());
-                            });
-                          }
-                          _processData();
-                        },
-
-
-                        label: Text("Add")
+                      ),
                     ),
-                  )
-                ],
+                    SizedBox(height: 10,),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton.icon(
+                        icon: Icon(Icons.add),
+
+                          onPressed: (){
+
+                            _processData();
+                          },
+
+
+                          label: Text("Add")
+                      ),
+                    )
+                  ],
+                ),
               ),
 
           ),

@@ -21,7 +21,7 @@ databaseManager? database=databaseHelper.database;
 
 class _CoursePageState extends State<CoursePage> {
   String day=DateFormat('EEEE').format(DateTime.now());
-  int currTime=int.parse(DateFormat('H').format(DateTime.now()));
+  String currTime=DateFormat('jm').format(DateTime.now());
 
    loadData() async {
     var db = database;
@@ -106,9 +106,11 @@ class courseList extends StatelessWidget {
                   if(!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
                   }
-                  var list=snapshot.data!.where((element) => ((int.parse(element.hour))>=int.parse(DateFormat('H').format(DateTime.now())))).toList();
-                  list.sort((a,b)=>a.hour.compareTo(b.hour));
-                    return list.isEmpty? Center(child: Text("No more lectures 😀 Enjoy !",style: TextStyle(fontSize: 15),)) :ListView.builder(
+
+                  var list=snapshot.data!.where((element) =>((int.parse(element.hour)+int.parse(element.min))>=((int.parse(DateFormat("H").format(DateTime.now())))+int.parse(DateFormat.m().format(DateTime.now()))) )).toList();
+                  list.sort((a,b)=>((int.parse(a.hour)+int.parse(a.min)).compareTo((int.parse(b.hour)+int.parse(b.min)))));
+
+                  return list.isEmpty? Center(child: Text("No more lectures 😀 Enjoy !",style: TextStyle(fontSize: 15),)) :ListView.builder(
                       // shrinkWrap: true,
                       itemCount: list.length,
                       itemBuilder: (context, index) {
@@ -132,7 +134,7 @@ class courseListPast extends StatelessWidget {
   Widget build(BuildContext context){
     return Column(
       children: [
-    Padding(padding: EdgeInsets.all(15),
+    Padding(padding: EdgeInsets.only(top:15),
               child: Text("Past Lectures",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -161,8 +163,8 @@ class courseListPast extends StatelessWidget {
                   if(!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator(color: Themes.darkBlue,));
                   }
-                  var list=snapshot.data!.where((element) => ((int.parse(element.hour))<int.parse(DateFormat('H').format(DateTime.now())))).toList();
-                  list.sort((a,b)=>a.hour.compareTo(b.hour));
+                  var list=snapshot.data!.where((element) =>((int.parse(element.hour)+int.parse(element.min))<((int.parse(DateFormat("H").format(DateTime.now())))+int.parse(DateFormat.m().format(DateTime.now()))) )).toList();
+                  list.sort((a,b)=>((int.parse(b.hour)+int.parse(b.min)).compareTo((int.parse(a.hour)+int.parse(a.min)))));
 
                   return list.isEmpty? Center(child: Text("No lectures are done till now 😔"),): ListView.builder(
                     // shrinkWrap: true,
