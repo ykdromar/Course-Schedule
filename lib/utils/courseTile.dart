@@ -68,38 +68,41 @@ class _CourseTileState extends State<CourseTile> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(7.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("${widget.course.code}",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Themes.darkBlue,
-                        ),
-                        ),
-                        Text("${widget.course.name}",
+                    child: SizedBox(
+                      width:200,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${widget.course.code}",
                           style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.black,
-                          ),
-                        ),
-                        Text("Time : ${widget.course.time}",
-                          style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                             color: Themes.darkBlue,
                           ),
-                        ),
-                        Text("Venue : ${widget.course.venue}",
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Themes.darkBlue,
                           ),
-                        )
-                      ],
+                          Text("${widget.course.name}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
+                          ),
+                          Text("Time : ${widget.course.time}",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Themes.darkBlue,
+                            ),
+                          ),
+                          Text("Venue : ${widget.course.venue}",
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Themes.darkBlue,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  SizedBox(width: 120,),
+SizedBox(width: 30,),
                   InkWell(child: Icon(Icons.delete_outlined,color: Themes.darkBlue,size: 30,),
                     onTap: (){
                     _deleteData(context);
