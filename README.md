@@ -17,24 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 
 I am still working on this project based on my requiremnet.
 
-Home Screen
-
-![Home Screen]<img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/UpcomingLectures.jpg" width="100" >
-
-Past Lecture Tab
-
-![Past Lecture Tab]<img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/PastLectures.jpg" width="100" >
-
-Course add Screen
-
-![Course Add screen]<img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/CourseAddScreen.jpg" width="100" >
-
-Splash Screen
-
-![Spalsh screen]<img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/splashScreen.jpg" width="100" >
-
-
-
-
-
+<p float="left">
+  <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/UpcomingLectures.jpg" width="200" />
+  <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/PastLectures.jpg" width="200" /> 
+  <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/CourseAddScreen.jpg" width="200" />
+  <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/splashScreen.jpg" width="200" />
+</p>
 
