@@ -26,4 +26,4 @@ I am still working on this project based on my requiremnet.
 
 Click Here to downlaod the apk for android.
 
-<a href="https://github.com/ykdromar/Course-Schedule/blob/master/schedule.apk" download>Download Apk</a>
+<a href="https://github.com/ykdromar/Course-Schedule/raw/master/schedule.apk" download>Download Apk</a>
