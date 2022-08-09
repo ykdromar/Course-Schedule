@@ -24,3 +24,6 @@ I am still working on this project based on my requiremnet.
   <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/CourseAddScreen.jpg" width="200" />
   </p>
 
+Click Here to downlaod the apk for android.
+
+[Download apk](https://github.com/ykdromar/Course-Schedule/blob/master/schedule.apk)
