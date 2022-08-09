@@ -18,9 +18,9 @@ samples, guidance on mobile development, and a full API reference.
 I am still working on this project based on my requiremnet.
 
 <p float="left">
+  <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/splashScreen.jpg" width="200" />
   <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/UpcomingLectures.jpg" width="200" />
   <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/PastLectures.jpg" width="200" /> 
   <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/CourseAddScreen.jpg" width="200" />
-  <img src="https://github.com/ykdromar/Course-Schedule/blob/master/project_images/splashScreen.jpg" width="200" />
-</p>
+  </p>
 
